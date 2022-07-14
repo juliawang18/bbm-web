@@ -1,0 +1,58 @@
+body, html {
+    font-family: 'Roboto Mono', monospace;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 0.85;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: normal;
+}
+
+h3 {
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+p {
+    line-height: 1.9em;
+}
+
+ol {
+    line-height: 1.9em;
+}
+
+button {
+    margin: 0;
+    background: none;
+    padding: 0.8em 1.8em;
+    text-align: center;
+    border-radius: 5px;
+    font-family: inherit;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.arrow-button {
+    position: absolute;
+    top: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3em;
+    padding: 0.6em 0.9em;
+    margin: 1em;
+}
