@@ -37,11 +37,14 @@ const GRID_HEART = [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    butConnect.addEventListener('click', clickConnect);
+    // butConnect.addEventListener('click', clickConnect);
 
     // Feature detection 
     const notSupported = document.getElementById('notSupported');
-    notSupported.classList.toggle('hidden', 'serial' in navigator);
+
+    if ('serial' in navigator) {
+        notSupported.className += ' hidden';
+    }
 
 });
 
