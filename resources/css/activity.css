@@ -1,0 +1,62 @@
+body {
+    background-color: #000;
+}
+
+.exit-button {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    font-family: Inter;
+    font-size: 1.4em;
+    padding: 0.5em 0.8em;
+    z-index: 100;
+}
+
+.light-button:hover {
+    border: 1px solid #fff;
+    background-color: #fff;
+    color: #000;
+}
+
+.light-button {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.dark-button:hover {
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff;
+}
+
+.dark-button {
+    border: 1px solid #000;
+    color: #000;
+}
+
+.modal {
+    margin-top: 25vh;
+    position: fixed;
+    padding: 2.5em;
+    width: 40vw;
+    text-align: center;
+}
+
+.light-modal {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.blue-highlight {
+    color: #0B6FFB;
+    font-weight: bold;
+}
+
+.canvas {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}

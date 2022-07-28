@@ -2,17 +2,6 @@ body {
     background-color: #000;
 }
 
-button {
-    border: 1px solid #fff;
-    color: #fff;
-}
-
-button:hover {
-    border: 2px solid #fff;
-    background-color: #fff;
-    color: #000;
-}
-
 .panel {
     color: rgb(255, 255, 255);
     margin: 0 auto;
