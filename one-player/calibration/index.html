@@ -6,7 +6,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <!-- Include p5.js library -->
     <script src="../../resources/lib/p5.js"></script>
@@ -17,15 +19,19 @@
 </head>
 
 <body>
-    <a href="../../one-player.html"><button class="exit-button light-button"><-</button></a>
-    <div class="canvas">
-        <script src="function-match.js"></script>
-        <div class="modal light-modal">
-           <h2>Figure out how to draw blue the whole time!</h2> 
-           <br/>
-            <button onclick="start()">Start</button>
+    <div class="modal-container">
+        <div id="hideModal" class="modal light-modal">
+            <p>Get used to rocking on the board!</p>
+            <button class="dark-button" onclick="startGame()">Start</button>
+        </div>
+        <div id="hideStatsModal" class="stats-modal light-modal">
+                <p>Woo!</p>
+                <button class="dark-button" onClick="window.location.reload();">Rock Again</button>
         </div>
     </div>
+    <main>
+        <script src="calibration.js"></script>
+    </main>
 </body>
 
 </html>

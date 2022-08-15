@@ -6,17 +6,19 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="./resources/css/selection.css">
     <link rel="stylesheet" type="text/css" href="./resources/css/index.css">
 
     <script>
         // Redirect to HTTPS if HTTP is requested.
-        if (window.location.protocol === 'http:') {
-            window.location.href = 'https:' + window.location.href.substring(5);
-        }
+        // if (window.location.protocol === 'http:') {
+        //     window.location.href = 'https:' + window.location.href.substring(5);
+        // }
     </script>
+
+    <!-- IMPORT Web Serial API -->
     <script src="./resources/scripts/script.js" defer></script>
 </head>
 
@@ -31,50 +33,66 @@
             </a>
         </div>
     </div>
+
     <div class="row">
-        <div id="notSupported" class="popup">
-            <h3>Oops!</h3>
-            <p>
-                Web Serial is not supported on this device.
-                <br /><br />
-                Make sure you're running Chrome 78 or later and have enabled the
-                <code>#enable-experimental-web-platform-features</code> flag in
-                <code>chrome://flags</code>.
-            </p>
+        <div id="notSupported">
+            <div class="popup">
+                <h3>Uh Oh!</h3>
+                <p>
+                    Web Serial is not supported on this device.
+                    <br /><br />
+                    Make sure you're running Chrome 78 or later and have enabled the
+                    <code>#enable-experimental-web-platform-features</code> flag in
+                    <code>chrome://flags</code>.
+                </p>
+
+            </div>
         </div>
 
-        <div class="column">
+        <div id="noConnection">
+            <div class="popup">
+                <h3>Let's begin by connecting our first player!</h3>
+                <p>
+                    Click the &quot;Connect&quot; button below, then select &quot;Feather 32u4&quot; 
+                    from the dialogue box.
+                </p>
+            </div>
+        </div>
+
+        <div class="column colx2">
             <a href="./one-player/fun/index.html">
-                <img src="./resources/assets/thumbnails/func_match_thumbnail.png" />
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/func_match_thumbnail.png" />
+                </div>
             </a>
-            <a href="./one-player/amp/index.html">
-                <img src="./resources/assets/thumbnails/amp_match_thumbnail.png" />
-            </a>
-        </div>
-        <div class="column">
-            <a href="./one-player/frq/index.html">
-                <img src="./resources/assets/thumbnails/freq_match_thumbnail.png" />
-            </a>
-            <a href="./one-player/fun-a/index.html">
-                <img src="./resources/assets/thumbnails/func_add_thumbnail.png" />
+            <a class="img-container" href="./one-player/calibration/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/calibration_thumbnail.png" />
+                </div>
             </a>
         </div>
-        <div class="column">
-            <a href="./one-player/calibration/index.html">
-                <img src="./resources/assets/thumbnails/calibration_thumbnail.png" />
+        <div class="column colx2">
+            <a class="img-container" href="./one-player/frq/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/freq_match_thumbnail.png" />
+                </div>
             </a>
-            <a>
-                <img src="./resources/assets/thumbnails/unit_circle_thumbnail.png" />
+
+            <a class="img-container" href="./one-player/amp/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/amp_match_thumbnail.png" />
+                </div>
             </a>
         </div>
     </div>
+
     <div class="bottom-menu">
         <a href="./index.html">
-            <button class="button menu-button">Intro</button>
+            <button class="button menu-button dark-button">Home</button>
         </a>
-        <button id="butConnect" class="button menu-button">Connect</button>
-        <a href="./index.html">
-            <button class="button menu-button">Settings</button>
+        <button id="butConnect" class="button menu-button dark-button">Connect</button>
+        <a href="./settings.html">
+            <button class="button menu-button dark-button">Settings</button>
         </a>
     </div>
 </body>

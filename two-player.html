@@ -6,18 +6,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="./resources/css/selection.css">
     <link rel="stylesheet" type="text/css" href="./resources/css/index.css">
 
     <script>
-        // Redirect to HTTPS if HTTP is requested.
-        if (window.location.protocol === 'http:') {
-            window.location.href = 'https:' + window.location.href.substring(5);
-        }
+        // // Redirect to HTTPS if HTTP is requested.
+        // if (window.location.protocol === 'http:') {
+        //     window.location.href = 'https:' + window.location.href.substring(5);
+        // }
     </script>
     <!-- <script src="./resources/js/script.js" defer></script> -->
 </head>
@@ -30,57 +28,56 @@
         </div>
     </div>
     <div class="row">
-        <!-- <div id="notSupported" class="popup">
-            <h3>Oops!</h3>
-            <p>
-                Web Serial is not supported on this device.
-                <br/><br/>
-                Make sure you're running Chrome 78 or later and have enabled the <code>#enable-experimental-web-platform-features</code> flag in
-                <code>chrome://flags</code>.
-            </p>
-        </div> -->
-        <div class="column">
-            <a>
-                <img src="./resources/assets/thumbnails/func_match_thumbnail.png" />
+        <div class="column colx3">
+            <a href="./two-player/fun/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/func_match_thumbnail.png" />
+                </div>           
             </a>
-            <a>
-                <img src="./resources/assets/thumbnails/amp_match_thumbnail.png" />
+            <a href="./two-player/unit/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/unit_circle_thumbnail.png" />
+                </div>           
             </a>
         </div>
-        <div class="column">
-            <a>
-                <img src="./resources/assets/thumbnails/freq_match_thumbnail.png" />
+        <div class="column colx3">
+            <a href="./two-player/frq/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/freq_match_thumbnail.png" />
+                </div>           
             </a>
-            <a>
-                <img src="./resources/assets/thumbnails/func_add_thumbnail.png" />
+            <a href="./two-player/amp/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/amp_match_thumbnail.png" />
+                </div>           
             </a>
         </div>
-        <div class="column">
-            <a>
-                <img src="./resources/assets/thumbnails/calibration_thumbnail.png" />
+        <div class="column colx3">
+            <a href="./two-player/calibration/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/calibration_thumbnail.png" />
+                </div>           
             </a>
-            <a>
-                <img src="./resources/assets/thumbnails/unit_circle_thumbnail.png" />
+            <a href="./two-player/fun-a/index.html">
+                <div class="img-container">
+                    <img src="./resources/images/thumbnails/func_add_thumbnail.png" />
+                </div>           
             </a>
         </div>
         <!-- <button id="butConnect" type="button">Connect</button> -->
     </div>
     <div class="bottom-menu">
         <a href="./index.html">
-            <button class="button menu-button">Intro</button>
+            <button class="button menu-button dark-button">Home</button>
         </a>
-        <a href="./index.html">
-            <button class="button menu-button">Settings</button>
+        <div>
+            <button id="butConnect" class="button menu-button dark-button">Connect</button>
+            <button id="butConnect" class="button menu-button dark-button">Connect</button>
+        </div>
+        <a href="./settings.html">
+            <button class="button menu-button dark-button">Settings</button>
         </a>
     </div>
 </body>
 
 </html>
-
-<!-- <div id="card-container" class="hidden">
-    <div class="text-message">
-        Sorry, Web Serial is not supported on this device, make sure you're
-        running Chrome 78 or later and have enabled the #enable-experimental-web-platform-features flag in
-        chrome://flags
-    </div>
-</div> -->

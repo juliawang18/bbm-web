@@ -5,8 +5,6 @@ let inputDone;
 let inputStream;
 let angle;
 
-let orient = [0, 0, 0];
-
 document.addEventListener('DOMContentLoaded', () => {
     // Initiate auto-connection
     clickConnect();
@@ -90,21 +88,6 @@ async function readLoop() {
         }
     }
 }
-
-// function toggleUIConnected(connected) {
-//     let lbl = 'Connect';
-//     if (connected) {
-//         lbl = 'Disconnect';
-//     }
-//     butConnect.textContent = lbl;
-//     ledCBs.forEach((cb) => {
-//         if (connected) {
-//             cb.removeAttribute('disabled');
-//             return;
-//         }
-//         cb.setAttribute('disabled', true);
-//     });
-// }
 
 /**
  * @name LineBreakTransformer

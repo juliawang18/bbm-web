@@ -1,9 +1,18 @@
 body {
-    background-color: #000;
+    background-color: #ECECEC;
+    color: #1D1C1A;
+}
+
+.background-img {
+    width: 100%;
+    opacity: 70%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: -99;
 }
 
 .panel {
-    color: rgb(255, 255, 255);
     margin: 0 auto;
     display: flex;
     min-height: 100vh;
@@ -60,6 +69,13 @@ body {
     max-width: 528px;
 }
 
+.scroll-container-about {
+    padding-top: 17vh;
+    padding-bottom: 3vh;
+    min-height: 63vh;
+    max-width: 700px;
+}
+
 .nav {
     position: fixed;
     display: flex;
@@ -67,7 +83,12 @@ body {
 }
 
 .link {
+    color: #1D1C1A;
     margin-bottom: 1em;
-    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+.link:hover {
+    opacity: 0.7;
 }
 

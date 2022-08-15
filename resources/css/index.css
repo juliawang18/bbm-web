@@ -34,27 +34,46 @@ ol {
 }
 
 a {
-    color: #fff;
     text-decoration: none;
 }
 
+/* BUTTONS */
+
 button {
     margin: 0;
-    background: none;
     padding: 0.8em 1.8em;
     text-align: center;
     font-family: inherit;
     line-height: 30px;
     font-size: 1em;
-    border: 1px solid #fff;
-    color: #fff;
 }
 
 button:hover {
     cursor: pointer;
-    border: 1px solid #fff;
-    background-color: #fff;
-    color: #000;
+}
+
+.dark-button {
+    border: 1.5px solid #1D1C1A;
+    background: none;
+    color: #1D1C1A;
+}
+
+.dark-button:hover {
+    border: 1.5px solid #1D1C1A;
+    background-color: #1D1C1A;
+    color: #ECECEC;
+}
+
+.light-button {
+    border: 1.5px solid #ECECEC;
+    background: none;
+    color: #ECECEC;
+}
+
+.light-button:hover {
+    border: 1.5px solid #ECECEC;
+    background-color: #ECECEC;
+    color: #1D1C1A;
 }
 
 .arrow-button {

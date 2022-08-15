@@ -1,62 +1,100 @@
 body {
-    background-color: #000;
+    width: 100%;
+    height: 100%;
 }
 
-.exit-button {
+.function-background {
+    background-color: #8DC7B8;
+}
+
+.frequency-background {
+    background-color: #E3C4A5;
+}
+
+.amplitude-background {
+    background-color: #0E2835;
+}
+
+.stats-modal {
+    display: none;
     position: fixed;
-    top: 1em;
-    left: 1em;
-    font-family: Inter;
-    font-size: 1.4em;
-    padding: 0.5em 0.8em;
-    z-index: 100;
+    min-width: 550px;
+    padding-bottom: 2em;
+    margin-top: 2em;
+    text-align: center;
+    z-index: 99;
 }
 
-.light-button:hover {
-    border: 1px solid #fff;
-    background-color: #fff;
-    color: #000;
-}
-
-.light-button {
-    border: 1px solid #fff;
+.player1 {
+    top: 0;
     color: #fff;
 }
 
-.dark-button:hover {
-    border: 1px solid #000;
-    background-color: #000;
+.player2 {
+    top: 50vh;
     color: #fff;
-}
-
-.dark-button {
-    border: 1px solid #000;
-    color: #000;
 }
 
 .modal {
-    margin-top: 25vh;
+    display: block;
     position: fixed;
-    padding: 2.5em;
-    width: 40vw;
+    min-width: 550px;
+    padding-bottom: 2em;
+    margin-top: 2em;
     text-align: center;
+    z-index: 99;
+}
+
+.dark-modal {
+    background-color: #1d1c1a;
+    color: #ECECEC;
 }
 
 .light-modal {
-    border: 1px solid #fff;
-    color: #fff;
+    background-color: #ECECEC;
+    color: #1d1c1a;
 }
 
-.blue-highlight {
-    color: #0B6FFB;
+.orange-highlight {
+    color: #FF7864;
     font-weight: bold;
 }
 
-.canvas {
-    position: fixed;
+.blue-highlight {
+    color: #219CBF;
+    font-weight: bold;
+}
+
+.green-highlight {
+    color: #41DF70;
+    font-weight: bold;
+}
+
+.modal-container {
+    position: absolute;
     top: 0;
+    z-index: 999;
     display: flex;
     justify-content: center;
     width: 100vw;
     height: 100vh;
+}
+
+.period-canvas {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -99;
+}
+
+.star-canvas {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 99;
+}
+
+.p5Canvas {
+    position: absolute;
+    z-index: 1;
 }

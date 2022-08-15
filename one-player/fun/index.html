@@ -6,26 +6,33 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <!-- Include p5.js library -->
     <script src="../../resources/lib/p5.js"></script>
+    <script src="../../resources/lib/p5.sound.js"></script>
     <script src="../../resources/scripts/autoscript.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/activity.css">
 </head>
 
-<body>
-    <a href="../../one-player.html"><button class="exit-button light-button"><-</button></a>
-    <div class="canvas">
-        <script src="function.js"></script>
-        <div class="modal light-modal">
-           <h2>Figure out how to draw <span class="blue-highlight">blue</span> the whole time!</h2> 
-           <br/>
-            <button onclick="start()">Start</button>
+<body class="function-background">
+    <div class="modal-container">
+        <div id="hideModal" class="modal dark-modal">
+            <p>Figure out how to draw <span class="orange-highlight">orange</span> the whole time!</p>
+            <button class="light-button" onclick="startGame()">Start</button>
+        </div>
+        <div id="hideStatsModal" class="stats-modal dark-modal">
+                <p>You drew <span class="orange-highlight">orange</span> <span id="percentCorrectText"></span>% of the time!</p>
+                <button class="light-button" onClick="window.location.reload();">Retry</button>
         </div>
     </div>
+    <main>
+        <script src="function.js"></script>
+    </main>
 </body>
 
 </html>
