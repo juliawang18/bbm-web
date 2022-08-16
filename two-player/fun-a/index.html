@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BBM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Include p5.js library -->
+    <script src="../../resources/lib/p5.js"></script>
+    <script src="../../resources/scripts/auto-connect-two.js" defer></script>
+    <script src="Player.js" defer></script>
+
+    <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/activity.css">
+</head>
+
+<body class="function-add-background">
+    <div class="modal-container">
+        <div id="hideModal" class="modal dark-modal">
+            <p>What you draw together will create a line!</p>
+            <button class="light-button" onclick="startGame()">Start</button>
+        </div>
+        <div id="hideStatsModal" class="stats-modal">
+                <button class="dark-button" onClick="window.location.reload();">Retry</button>
+        </div>
+    </div>
+    <main>
+        <script src="function-addition.js"></script>
+    </main>
+</body>
+
+</html>

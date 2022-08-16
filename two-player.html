@@ -12,67 +12,98 @@
     <link rel="stylesheet" type="text/css" href="./resources/css/index.css">
 
     <script>
-        // // Redirect to HTTPS if HTTP is requested.
+        // Redirect to HTTPS if HTTP is requested.
         // if (window.location.protocol === 'http:') {
         //     window.location.href = 'https:' + window.location.href.substring(5);
         // }
     </script>
-    <!-- <script src="./resources/js/script.js" defer></script> -->
+
+    <!-- IMPORT Web Serial API -->
+    <script src="./resources/scripts/two-player-gesture.js" defer></script>
 </head>
 
 <body>
     <div class="toggle-header">
         <div class="toggle-container">
-            <a href="./one-player.html"><div class="toggle-text">ONE-PLAYER</div></a>
-            <a href="./two-player.html"><div class="toggle-text active">TWO-PLAYER</div></a>
+            <a href="./one-player.html">
+                <div class="toggle-text">ONE-PLAYER</div>
+            </a>
+            <a href="./two-player.html">
+                <div class="toggle-text active">TWO-PLAYER</div>
+            </a>
         </div>
     </div>
+
     <div class="row">
+        <div id="notSupported">
+            <div class="popup">
+                <h3>Uh Oh!</h3>
+                <p>
+                    Web Serial is not supported on this device.
+                    <br /><br />
+                    Make sure you're running Chrome 78 or later and have enabled the
+                    <code>#enable-experimental-web-platform-features</code> flag in
+                    <code>chrome://flags</code>.
+                </p>
+
+            </div>
+        </div>
+
+        <div id="noConnection">
+            <div class="popup">
+                <h3>These activities require two players!</h3>
+                <p>
+                    Connect players below by clicking on the &quot;Connect&quot; buttons and selecting 
+                    a device for each player. Make sure you don't use the same device for both players!
+                </p>
+            </div>
+        </div>
+
         <div class="column colx3">
             <a href="./two-player/fun/index.html">
                 <div class="img-container">
                     <img src="./resources/images/thumbnails/func_match_thumbnail.png" />
-                </div>           
+                </div>
             </a>
-            <a href="./two-player/unit/index.html">
+            <a href="./two-player/amp/index.html">
                 <div class="img-container">
-                    <img src="./resources/images/thumbnails/unit_circle_thumbnail.png" />
-                </div>           
+                    <img src="./resources/images/thumbnails/amp_match_thumbnail.png" />
+                </div>
             </a>
         </div>
         <div class="column colx3">
             <a href="./two-player/frq/index.html">
                 <div class="img-container">
                     <img src="./resources/images/thumbnails/freq_match_thumbnail.png" />
-                </div>           
+                </div>
             </a>
-            <a href="./two-player/amp/index.html">
+            <a href="./two-player/fun-a/index.html">
                 <div class="img-container">
-                    <img src="./resources/images/thumbnails/amp_match_thumbnail.png" />
-                </div>           
+                    <img src="./resources/images/thumbnails/func_add_thumbnail.png" />
+                </div>
             </a>
         </div>
         <div class="column colx3">
             <a href="./two-player/calibration/index.html">
                 <div class="img-container">
                     <img src="./resources/images/thumbnails/calibration_thumbnail.png" />
-                </div>           
+                </div>
             </a>
-            <a href="./two-player/fun-a/index.html">
+            <a href="./two-player/unit/index.html">
                 <div class="img-container">
-                    <img src="./resources/images/thumbnails/func_add_thumbnail.png" />
-                </div>           
+                    <img src="./resources/images/thumbnails/unit_circle_thumbnail.png" />
+                </div>
             </a>
         </div>
-        <!-- <button id="butConnect" type="button">Connect</button> -->
     </div>
+
     <div class="bottom-menu">
         <a href="./index.html">
             <button class="button menu-button dark-button">Home</button>
         </a>
         <div>
-            <button id="butConnect" class="button menu-button dark-button">Connect</button>
-            <button id="butConnect" class="button menu-button dark-button">Connect</button>
+            <button id="butConnectP1" class="button menu-button dark-button">Connect P1</button>
+            <button id="butConnectP2" class="button menu-button dark-button">Connect P2</button>
         </div>
         <a href="./settings.html">
             <button class="button menu-button dark-button">Settings</button>

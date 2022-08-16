@@ -12,25 +12,32 @@
 
     <!-- Include p5.js library -->
     <script src="../../resources/lib/p5.js"></script>
-    <script src="../../resources/scripts/autoscript.js" defer></script>
+    <script src="../../resources/scripts/auto-connect-two.js" defer></script>
     <script src="Player.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/activity.css">
 </head>
 
-<body>
+<body class="amplitude-background">
+    <h3 class="p1-label light-label">P1</h3>
+    <h3 class="p2-label light-label">P2</h3>
     <div class="modal-container">
-        <div id="hideModal" class="modal dark-modal">
-            <p>Find <span class="blue-highlight">blue</span> as many times as possible!</p>
-            <button onclick="startGame()">Start</button>
+        <div id="hideModal" class="modal dark-modal two-player-modal">
+            <p>Find <span class="green-highlight">green</span> as many times as possible!</p>
+            <button class="light-button" onclick="startGame()">Start</button>
         </div>
-        <div id="hideStatsModal" class="stats-modal dark-modal">
-                <p>You found <span class="blue-highlight">blue</span> <span id="numReached"></span> times!</p>
-                <button onClick="window.location.reload();">Retry</button>
+        <div id="hideStatsModal" class="stats-modal dark-modal two-player-modal">
+            <br />
+            <p>P1 found <span class="green-highlight">green</span> <span id="player1Score"></span> times!</p>
+            <p>P2 found <span class="green-highlight">green</span> <span id="player2Score"></span> times!</p>
+            <button class="light-button" onClick="window.location.reload();">Retry</button>
         </div>
     </div>
     <main>
+        <canvas id="starsCanvas" class="star-canvas">
+            <script src="stars.js"></script>
+        </canvas>
         <script src="amplitude.js"></script>
     </main>
 </body>

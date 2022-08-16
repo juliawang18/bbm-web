@@ -8,7 +8,6 @@ let boxSize;
 
 let gridColor;
 let gradientColors;
-let starColor;
 
 let playerSpeed;
 let playerSensitivity;
@@ -47,9 +46,9 @@ function setup() {
     gridHeight = 8;
     boxSize = height / gridHeight;
 
-    playerSpeed = 5;
+    playerSpeed = float(sessionStorage.getItem("speed")) + 3;
     playerLineWeight = boxSize / 5;
-    playerSensitivity = 15;
+    playerSensitivity = float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10;
 
     x = 0;
 
@@ -93,8 +92,10 @@ function draw() {
             if (prevState["section"] == 0 && curState["section"] == 1) {
                 // enter top
                 enterTopSound.play();
-                if (allowGreen) {drawStar(x, y)};
-                numReached += 1;
+                if (allowGreen) {
+                    drawStar(x, y);
+                    numReached += 1;
+                };
                 allowGreen = false;
             } else if (prevState["section"] == 1 && curState["section"] == 0) {
                 // exit top
@@ -102,8 +103,10 @@ function draw() {
             } else if (prevState["section"] == 0 && curState["section"] == -1) {
                 // enter bottom
                 enterBottomSound.play();
-                if (allowGreen) {drawStar(x, y)};
-                numReached += 1;
+                if (allowGreen) {
+                    drawStar(x, y);
+                    numReached += 1;
+                };
                 allowGreen = false;
             } else if (prevState["section"] == -1 && curState["section"] == 0) {
                 // exit bottom
@@ -146,7 +149,6 @@ function loadColors() {
     colorMode(HSB, 360, 100, 100);
 
     gridColor = color(188, 38, 60);
-    starColor = color(86, 44, 100);
 
     // correct to incorrect
     gradientColors = [
@@ -171,7 +173,7 @@ function loadSounds() {
 
 function updatePrevState(y, section, sign) {
     prevState["y"] = y;
-    prevState["section"] =section;
+    prevState["section"] = section;
     prevState["sign"] = sign;
 
 }

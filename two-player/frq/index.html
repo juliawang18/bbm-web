@@ -12,21 +12,26 @@
 
     <!-- Include p5.js library -->
     <script src="../../resources/lib/p5.js"></script>
-    <script src="../../resources/scripts/autoscript.js" defer></script>
+    <script src="../../resources/scripts/auto-connect-two.js" defer></script>
+    <script src="Player.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/activity.css">
 </head>
 
-<body>
+<body class="frequency-background">
+    <h3 class="p1-label dark-label">P1</h3>
+    <h3 class="p2-label dark-label">P2</h3>
     <div class="modal-container">
-        <div id="hideModal" class="modal dark-modal">
+        <div id="hideModal" class="modal dark-modal two-player-modal">
             <p>Try to make the whole screen <span class="blue-highlight">blue</span>!</p>
-            <button onclick="startGame()">Start</button>
+            <button class="light-button" onclick="startGame()">Start</button>
         </div>
-        <div id="hideStatsModal" class="stats-modal dark-modal">
-            <p>You made <span id="numPeriods"></span>/6 of the screen <span class="blue-highlight">blue</span>.</p>
-            <button onClick="window.location.reload();">Retry</button>
+        <div id="hideStatsModal" class="stats-modal dark-modal two-player-modal">
+            <br/>
+            <p>P1 made <span id="player1Score"></span>/6 of the screen <span class="blue-highlight">blue</span>!</p>
+            <p>P2 made <span id="player2Score"></span>/6 of the screen <span class="blue-highlight">blue</span>!</p>
+            <button class="light-button" onClick="window.location.reload();">Retry</button>
         </div>
     </div>
     <main>

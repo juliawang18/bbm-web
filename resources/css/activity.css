@@ -15,6 +15,18 @@ body {
     background-color: #0E2835;
 }
 
+.calibraton-background {
+    background-color: #1d1c1a;
+}
+
+.function-add-background {
+    background-color: #ACC8CC;
+}
+
+.unit-background {
+    background-color: #0E2835;
+}
+
 .stats-modal {
     display: none;
     position: fixed;
@@ -25,16 +37,6 @@ body {
     z-index: 99;
 }
 
-.player1 {
-    top: 0;
-    color: #fff;
-}
-
-.player2 {
-    top: 50vh;
-    color: #fff;
-}
-
 .modal {
     display: block;
     position: fixed;
@@ -43,6 +45,11 @@ body {
     margin-top: 2em;
     text-align: center;
     z-index: 99;
+}
+
+.two-player-modal {
+    margin-top: 38vh;
+    opacity: 0.7;
 }
 
 .dark-modal {
@@ -68,6 +75,28 @@ body {
 .green-highlight {
     color: #41DF70;
     font-weight: bold;
+}
+
+.p1-label {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    margin: 1em;
+}
+
+.p2-label {
+    position: absolute;
+    z-index: 99;
+    top: 50vh;
+    margin: 0.5em;
+}
+
+.light-label {
+    color:#ECECEC;
+}
+
+.dark-label {
+    color:#1d1c1a;
 }
 
 .modal-container {

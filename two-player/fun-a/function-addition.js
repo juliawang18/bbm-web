@@ -1,5 +1,5 @@
 /*
- * Calibration Activity Javascript File
+ * Function-Addition Activity Javascript File
 */
 
 let midHeight;
@@ -7,22 +7,21 @@ let gridHeight;
 let boxSize;
 
 let gridColor;
-let playerLineColor;
+let sumColor;
 
 let playerSpeed;
-let playerSensitivity;
 let playerLineWeight;
 
 let gameIsPlaying = false;
 
-let x;
-let y;
+let player1;
+let player2;
 
 function loadColors() {
     colorMode(HSB, 360, 100, 100);
-    
-    gridColor = color(0, 0, 40);
-    playerLineColor = color(175, 100, 76);
+
+    gridColor = color(188, 25, 30);
+    sumColor = color(197, 63, 34);
 }
 
 function preload() {
@@ -38,13 +37,14 @@ function setup() {
 
     playerSpeed = float(sessionStorage.getItem("speed")) + 3;
     playerLineWeight = boxSize / 5;
-    playerSensitivity = float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10;
-    
-    x = 0;
+
+    player1 = new Player(0, 0, color(64, 48, 100), float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10);
+    player2 = new Player(0, 0, color(193, 83, 75), float(sessionStorage.getItem("sensitivityP2")) * 2.5 + 10);
 
     // initial background sketch
     drawGrid();
     drawXAxis();
+
 }
 
 function draw() {
@@ -52,15 +52,25 @@ function draw() {
     if (!gameIsPlaying) {
         noLoop();
     } else {
-        if (x > width) {
+        if (player1.x > width) {
             noLoop();
             endGame();
         }
-    
-        x = x + playerSpeed;
-        y = lerp(y, angle * playerSensitivity + midHeight, 0.05);
 
-        ellipse(x, y, playerLineWeight);
+        // player 1
+        updatePlayerCoords(player1, angle1);
+        fill(player1.color);
+        ellipse(player1.x, player1.y, playerLineWeight);
+
+        // player 2
+        updatePlayerCoords(player2, angle2);
+        fill(player2.color);
+        ellipse(player2.x, player2.y, playerLineWeight);
+
+        // sum
+        fill(sumColor);
+        newY = map(player1.y, 0, height, -midHeight, midHeight)
+        ellipse(player2.x, player2.y + newY, playerLineWeight);
     }
 
 }
@@ -72,10 +82,10 @@ function startGame() {
     hideModal.style.display = "none";
 
     noStroke();
-    fill(playerLineColor);
 
-    y = angle * playerSensitivity + midHeight;
-    
+    player1.y = angle1 * player1.sensitivity + midHeight;
+    player2.y = angle2 * player2.sensitivity + midHeight;
+
     loop();
 }
 
@@ -84,6 +94,12 @@ function endGame() {
 
     let hideStatsModal = document.getElementById('hideStatsModal');
     hideStatsModal.style.display = "block";
+
+}
+
+function updatePlayerCoords(player, angle) {
+    player.x = player.x + playerSpeed;
+    player.y = lerp(player.y, angle * player.sensitivity + midHeight, 0.05);
 
 }
 
@@ -106,13 +122,13 @@ function drawGrid() {
 }
 
 function drawXAxis() {
-     // set pen
-     stroke(gridColor);
-     strokeWeight(8);
-     setLineDash([0, 0]);
- 
-     // draw x-axis
-     line(0, midHeight, width, midHeight);
+    // set pen
+    stroke(gridColor);
+    strokeWeight(8);
+    setLineDash([0, 0]);
+
+    // draw x-axis
+    line(0, midHeight, width, midHeight);
 }
 
 function setLineDash(list) {

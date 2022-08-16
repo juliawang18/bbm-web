@@ -44,19 +44,6 @@ async function serialConnect() {
 
 
 /**
- * @name disconnect
- * Closes the Web Serial connection.
- */
-async function serialDisconnect() {
-
-    // CODELAB: Close the input stream (reader).
-
-    // CODELAB: Close the port.
-
-}
-
-
-/**
  * @name clickConnect
  * Click handler for the connect/disconnect button.
  */

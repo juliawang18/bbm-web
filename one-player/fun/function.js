@@ -57,10 +57,6 @@ function preload() {
     loadSounds();
 }
 
-var toType = function(obj) {
-    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-  }
-
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
 

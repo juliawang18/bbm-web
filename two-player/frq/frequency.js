@@ -7,29 +7,22 @@ let gridWidth;
 let boxSize;
 
 let gridColor;
-let playerColor;
+let playerLineColor;
 
 let playerSpeed;
-let playerSensitivity;
 let playerLineWeight;
 
 let gameIsPlaying = false;
 
-let x;
-let y;
+let player1;
+let player2;
 
-let curState = new Object();
-let prevState = new Object();
-let periodStart;
-let numTimesPassedAxis;
 let goalPeriodLength;
-let numGoalPeriods = 0;
 
 let goalPeriodCount = 6;
 
 function preload() {
     loadColors();
-
 }
 
 function setup() {
@@ -39,17 +32,18 @@ function setup() {
     gridWidth = 12;
     boxSize = width / gridWidth;
 
-    playerSpeed = 5;
-    playerLineWeight = boxSize / 6;
-    playerSensitivity = 15;
+    playerSpeed = float(sessionStorage.getItem("speed")) + 3;
+    playerLineWeight = boxSize / 4;
 
-    x = 0;
+    player1 = new Player(1, 0, 0, midHeight * 0.5, float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10);
+    player2 = new Player(2, 0, 0, midHeight * 1.5, float(sessionStorage.getItem("sensitivityP2")) * 2.5 + 10);
 
-    numTimesPassedAxis = -1;
     goalPeriodLength = (gridWidth / goalPeriodCount) * boxSize;
 
+    // initial background sketch
+    drawPlayerViews();
     drawGrid();
-    drawXAxis();
+    drawXAxes();
 
 }
 
@@ -58,40 +52,16 @@ function draw() {
     if (!gameIsPlaying) {
         noLoop();
     } else {
-        if (x > width) {
+        if (player1.x > width) {
             noLoop();
             endGame();
         }
 
-        updatePrevState(y, curState["sign"], curState["slope"]);
+        // player 1
+        updatePlayer(player1, angle1);
 
-        x = x + playerSpeed;
-        y = lerp(y, angle * playerSensitivity + midHeight, 0.05);
-
-        ellipse(x, y, playerLineWeight);
-
-        updateCurState(y, prevState);
-
-        if (prevState["sign"]) {
-            if (prevState["sign"] != curState["sign"]) {
-                // middle
-                if (numTimesPassedAxis < 0) {
-                    numTimesPassedAxis = 0;
-                    periodStart = x;
-                } else {
-                    numTimesPassedAxis += 1;
-
-                    if (numTimesPassedAxis % 2 == 0) {
-                        drawPeriod(periodStart, x);
-                    }
-                }
-            }
-
-            if (prevState["slope"] != curState["slope"]) {
-                // peaks
-            }
-
-        }
+        //player 2
+        updatePlayer(player2, angle2);
     }
 
 }
@@ -102,17 +72,23 @@ function startGame() {
     let hideModal = document.getElementById('hideModal');
     hideModal.style.display = "none";
 
-    y = angle * playerSensitivity + midHeight;
-    updateCurState(y);
+    player1.y = angle1 * player1.sensitivity + player1.midHeight;
+    player2.y = angle2 * player2.sensitivity + player2.midHeight;
+    
+    updateCurState(player1);
+    updateCurState(player2);
 
     noStroke();
+    fill(playerLineColor);
     loop();
 
 }
 
 function endGame() {
     gameIsPlaying = false;
-    document.getElementById("numPeriods").innerHTML = numGoalPeriods;
+
+    document.getElementById("player1Score").innerHTML = player1.score;
+    document.getElementById("player2Score").innerHTML = player2.score;
 
     let hideStatsModal = document.getElementById('hideStatsModal');
     hideStatsModal.style.display = "block";
@@ -122,26 +98,63 @@ function endGame() {
 function loadColors() {
     colorMode(HSB, 360, 100, 100);
 
-    gridColor = color(0, 0, 100);
-    playerColor = color(0, 0, 33);
+    gridColor = color(30, 35, 30);
+    playerLineColor = color(30, 35, 30);
 
 }
 
-function updatePrevState(y, sign, slope) {
-    prevState["y"] = y;
-    prevState["sign"] = sign;
-    prevState["slope"] = slope;
+function updatePlayer(player, angle) {
+    updatePrevState(player);
+    updatePlayerCoords(player, angle);
+    ellipse(player.x, player.y, playerLineWeight);
+    updateCurState(player);
+
+    if (player.prevState["sign"]) {
+        if (player.prevState["sign"] != player.curState["sign"]) {
+            // middle
+            if (player.numTimesPassedAxis < 0) {
+                player.numTimesPassedAxis = 0;
+                player.periodStart = player.x;
+            } else {
+                player.numTimesPassedAxis += 1;
+
+                if (player.numTimesPassedAxis % 2 == 0) {
+                    drawPeriod(player);
+                }
+            }
+        }
+
+    }
+}
+
+function updatePrevState(player) {
+    player.prevState["y"] = player.curState["y"];
+    player.prevState["sign"] = player.curState["sign"];
+    player.prevState["slope"] = player.curState["slope"];
 
 }
 
-function updateCurState(curY, prevState) {
-    curState["y"] = curY;
+function updateCurState(player) {
+    player.curState["y"] = player.y;
 
-    if (prevState) {
-        curState["sign"] = (curY < midHeight) ? 1 : -1;
-        curState["slope"] = (prevState["y"] > curY) ? 1 : -1;
+    if (player.prevState) {
+        player.curState["sign"] = (player.y < player.midHeight) ? 1 : -1;
+        player.curState["slope"] = (player.prevState["y"] > player.y) ? 1 : -1;
     }
 
+}
+
+function updatePlayerCoords(player, angle) {
+    player.x = player.x + playerSpeed;
+    player.y = lerp(player.y, angle * player.sensitivity + player.midHeight, 0.05);
+
+}
+
+function drawPlayerViews() {
+    noStroke();
+
+    fill(0, 0.1);
+    rect(0, 0, width, height / 2);
 }
 
 function drawGrid() {
@@ -156,24 +169,25 @@ function drawGrid() {
     }
 
     // draw horiz. grid lines
-    for (let i = midHeight; i < height; i += boxSize) {
-        line(0, i, width, i);
-    }
+    // for (let i = midHeight; i < height; i += boxSize) {
+    //     line(0, i, width, i);
+    // }
 
-    for (let i = midHeight; i > 0; i -= boxSize) {
-        line(0, i, width, i);
-    }
+    // for (let i = midHeight; i > 0; i -= boxSize) {
+    //     line(0, i, width, i);
+    // }
 
 }
 
-function drawXAxis() {
+function drawXAxes() {
     // set pen
     stroke(gridColor);
-    strokeWeight(8);
+    strokeWeight(4);
     setLineDash([0, 0]);
 
     // draw x-axis
-    line(0, midHeight, width, midHeight);
+    line(0, player1.midHeight, width, player1.midHeight);
+    line(0, player2.midHeight, width, player2.midHeight);
 
 }
 

@@ -1,13 +1,14 @@
 /*
- * Two-Player Calibration Activity Javascript File
+ * Two-Player Unit Circle Activity Javascript File
 */
 
 let midHeight;
 let gridHeight;
 let boxSize;
+let endPos;
 
 let gridColor;
-let playerLineColor;
+let unitCircleColor;
 
 let playerSpeed;
 let playerLineWeight;
@@ -20,8 +21,8 @@ let player2;
 function loadColors() {
     colorMode(HSB, 360, 100, 100);
 
-    gridColor = color(0, 0, 40);
-    playerLineColor = color(175, 100, 76);
+    gridColor = color(188, 38, 60);
+    unitCircleColor = color(144, 44, 89);
 }
 
 function preload() {
@@ -34,17 +35,18 @@ function setup() {
     midHeight = height / 2;
     gridHeight = 12;
     boxSize = height / gridHeight;
+    endPos = boxSize * 14;
 
     playerSpeed = float(sessionStorage.getItem("speed")) + 3;
-    playerLineWeight = boxSize / 4;
+    playerLineWeight = boxSize / 3;
 
-    player1 = new Player(0, 0, midHeight * 0.5, float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10);
-    player2 = new Player(0, 0, midHeight * 1.5, float(sessionStorage.getItem("sensitivityP2")) * 2.5 + 10);
+    player1 = new Player(0, 0, color(64, 48, 100), midHeight * 0.5, float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10);
+    player2 = new Player(0, 0, color(194, 75, 62), midHeight * 1.5, float(sessionStorage.getItem("sensitivityP2")) * 2.5 + 10);
 
     // initial background sketch
     drawPlayerViews();
     drawGrid();
-    drawXAxes();
+    drawAxes();
 }
 
 function draw() {
@@ -52,18 +54,27 @@ function draw() {
     if (!gameIsPlaying) {
         noLoop();
     } else {
-        if (player1.x > width) {
+        if (player1.x > endPos) {
             noLoop();
             endGame();
         }
 
         // player 1
         updatePlayerCoords(player1, angle1);
+        fill(player1.color);
         ellipse(player1.x, player1.y, playerLineWeight);
 
         // player 2
         updatePlayerCoords(player2, angle2);
+        fill(player2.color);
         ellipse(player2.x, player2.y, playerLineWeight);
+
+        // unit circle
+        x = -(player2.y - midHeight * 1.5);
+        y = player1.y - midHeight * 0.5;
+
+        fill(unitCircleColor);
+        ellipse((endPos + width) / 2 + x, midHeight + y, playerLineWeight);
     }
 
 }
@@ -73,7 +84,6 @@ function startGame() {
     hideModal.style.display = "none";
 
     noStroke();
-    fill(playerLineColor);
 
     // instantiate players
     player1.y = angle1 * player1.sensitivity + player1.midHeight;
@@ -101,8 +111,13 @@ function updatePlayerCoords(player, angle) {
 function drawPlayerViews() {
     noStroke();
 
+    // player 1
     fill(0, 0.4);
-    rect(0, 0, width, height / 2);
+    rect(0, 0, endPos, height / 2);
+
+    // unit circle
+    fill(100, 0.1);
+    rect(endPos, 0, width - endPos, height);
 }
 
 function drawGrid() {
@@ -112,7 +127,15 @@ function drawGrid() {
     setLineDash([5, 5]);
 
     // draw vertical grid lines
-    for (let i = boxSize; i < width; i += boxSize) {
+    for (let i = boxSize; i < endPos; i += boxSize) {
+        line(i, 0, i, height);
+    }
+
+    for (let i = (endPos + width) / 2; i < width; i += boxSize) {
+        line(i, 0, i, height);
+    }
+
+    for (let i = (endPos + width) / 2; i > endPos; i -= boxSize) {
         line(i, 0, i, height);
     }
 
@@ -123,15 +146,19 @@ function drawGrid() {
 
 }
 
-function drawXAxes() {
+function drawAxes() {
     // set pen
     stroke(gridColor);
     strokeWeight(4);
     setLineDash([0, 0]);
 
     // draw x-axis
-    line(0, player1.midHeight, width, player1.midHeight);
-    line(0, player2.midHeight, width, player2.midHeight);
+    line(0, player1.midHeight, endPos, player1.midHeight);
+    line(0, player2.midHeight, endPos, player2.midHeight);
+
+    // draw unit circle axes
+    line(endPos, midHeight, width, midHeight);
+    line((endPos + width) / 2, 0, (endPos + width) / 2, height);
 
 }
 

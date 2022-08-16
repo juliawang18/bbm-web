@@ -6,29 +6,39 @@ let periodWidth = 0;
 ctx.canvas.width  = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 
-function drawPeriod(startX, endX) {
+function drawPeriod(player) {
+    let startX = player.periodStart;
+    let endX = player.x;
+
     periodWidth = endX - startX;
 
     ctx.beginPath();
 
     distance = abs(periodWidth - goalPeriodLength);
     
-    if (distance < 10) {
-        ctx.fillStyle = "#0B6FFB";
-        numGoalPeriods += 1;
-    } else if (distance > 10 && distance < 200) {
-        ctx.fillStyle = "#35CD76";
+    if (distance < 30) {
+        ctx.fillStyle = "#219CBF";
+        player.score += 1;
+    } else if (distance > 30 && distance < 100) {
+        ctx.fillStyle = "#B78A90";
     } else {
-        ctx.fillStyle = "#FFAB2E";
+        ctx.fillStyle = "#ED8383";
     }
 
-    ctx.fillRect(startX, 0, periodWidth, ctx.canvas.height);
+    let startY;
+    if (player.id == 1) {
+        startY = 0;
+    } else {
+        startY = ctx.canvas.height / 2;
+    }
 
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(endX, 0, 2, ctx.canvas.height);
+    ctx.fillRect(startX, startY, periodWidth, ctx.canvas.height / 2);
+
+    ctx.fillStyle = "#4D3F32";
+    ctx.fillRect(endX, startY, 2, ctx.canvas.height / 2);
 
     ctx.closePath();
     
-    periodStart = endX + 2;
+    player.periodStart = endX + 2;
 
 }

@@ -7,7 +7,7 @@ let gridHeight;
 let boxSize;
 
 let gridColor;
-let gradientColors = [];
+let gradientColors;
 
 let playerSpeed;
 let playerLineWeight;
@@ -18,23 +18,23 @@ let player1;
 let player2;
 
 let goalAmplitude = 2;
+let goalInPixels;
 
 function loadColors() {
     colorMode(HSB, 360, 100, 100);
 
-    gridColor = color(0, 0, 40);
+    gridColor = color(188, 38, 60);
 
-    // blue to gray
+    // correct to incorrect
     gradientColors = [
-        color(215, 95, 96),
-        color(215, 88, 91),
-        color(215, 81, 84),
-        color(215, 72, 77),
-        color(215, 64, 72),
-        color(215, 45, 62),
-        color(215, 35, 58),
-        color(214, 11, 49),
-        color(0, 0, 46)
+        color(138, 71, 87),
+        color(140, 70, 79),
+        color(143, 67, 70),
+        color(149, 64, 59),
+        color(154, 61, 53),
+        color(164, 57, 44),
+        color(178, 52, 37),
+        color(188, 51, 36)
     ]
 }
 
@@ -49,12 +49,13 @@ function setup() {
     gridHeight = 12;
     boxSize = height / gridHeight;
 
-    playerSpeed = 5;
-    playerLineWeight = boxSize / 5;
+    playerSpeed = float(sessionStorage.getItem("speed")) + 3;
+    playerLineWeight = boxSize / 4;
 
-    player1 = new Player(0, 0, color(0, 0, 5), midHeight * 0.5, 15);
-    player2 = new Player(0, 0, color(0, 0, 10), midHeight * 1.5, 15);
+    goalInPixels = goalAmplitude * boxSize;
 
+    player1 = new Player(0, 0, midHeight * 0.5 - goalInPixels, midHeight * 0.5 + goalInPixels, midHeight * 0.5, float(sessionStorage.getItem("sensitivityP1")) * 2.5 + 10);
+    player2 = new Player(0, 0, midHeight * 1.5 - goalInPixels, midHeight * 1.5 + goalInPixels, midHeight * 1.5, float(sessionStorage.getItem("sensitivityP2")) * 2.5 + 10);
 
     // initial background sketch
     drawPlayerViews();
@@ -73,14 +74,10 @@ function draw() {
         }
 
         // player 1
-        // updatePlayer(player1, angle);
-        // calculateFillColor(player1);
-        ellipse(player1.x, player1.y, playerLineWeight);
+        updatePlayer(player1, angle1);
 
-        // player 2
-        // updatePlayer(player2, angle);
-        // calculateFillColor(player2);
-        ellipse(player2.x, player2.y, playerLineWeight);
+        //player 2
+        updatePlayer(player2, angle2);
     }
 
 }
@@ -92,8 +89,8 @@ function startGame() {
     noStroke();
 
     // instantiate players
-    player1.y = angle * player1.sensitivity + player1.midHeight;
-    player2.y = angle * player2.sensitivity + player2.midHeight;
+    player1.y = angle1 * player1.sensitivity + player1.midHeight;
+    player2.y = angle2 * player2.sensitivity + player2.midHeight;
 
     gameIsPlaying = true;
 
@@ -103,37 +100,85 @@ function startGame() {
 function endGame() {
     gameIsPlaying = false;
 
-    document.getElementById("player1Score").innerHTML = round((player1.numCorrect / Object.keys(targetPoints).length) * 100);
-    document.getElementById("player2Score").innerHTML = round((player1.numCorrect / Object.keys(targetPoints).length) * 100);
+    document.getElementById("player1Score").innerHTML = player1.score;
+    document.getElementById("player2Score").innerHTML = player2.score;
 
-    let player1Modal = document.getElementById('player1Modal');
-    player1Modal.style.display = "block";
-
-    let player2Modal = document.getElementById('player2Modal');
-    player2Modal.style.display = "block";
+    let hideStatsModal = document.getElementById('hideStatsModal');
+    hideStatsModal.style.display = "block";
 
 }
 
 function updatePlayer(player, angle) {
+    updatePrevState(player);
+    updatePlayerCoords(player, angle);
+    calculateFillColor(player);
+    ellipse(player.x, player.y, playerLineWeight);
+    updateCurState(player);
+
+    if (player.prevState["section"] != player.curState["section"]) {
+        if (player.prevState["section"] == 0 && player.curState["section"] == 1) {
+            // enter top
+            if (player.allowGreen) { 
+                drawStar(player.x, player.y);
+                player.score += 1;
+            };
+            player.allowGreen = false;
+        }
+        
+        if (player.prevState["section"] == 0 && player.curState["section"] == -1) {
+            // enter bottom
+            if (player.allowGreen) { 
+                drawStar(player.x, player.y);
+                player.score += 1;
+            };
+            player.allowGreen = false;
+        }
+    }
+
+    if (player.prevState["sign"] != player.curState["sign"]) {
+        player.allowGreen = true;
+    }
+}
+
+function updatePrevState(player) {
+    player.prevState["y"] = player.curState["y"];
+    player.prevState["section"] = player.curState["section"];
+    player.prevState["sign"] = player.curState["sign"];
+
+}
+
+function updateCurState(player) {
+    player.curState["y"] = player.y;
+
+    if (player.prevState) {
+        if (player.y < player.yAbove) {
+            player.curState["section"] = 1;
+        } else if (player.y >= player.yAbove && player.y <= player.yBelow) {
+            player.curState["section"] = 0;
+        } else {
+            player.curState["section"] = -1;
+        }
+
+        player.curState["sign"] = (player.y < player.midHeight) ? 1 : -1;
+    }
+
+}
+
+function updatePlayerCoords(player, angle) {
     player.x = player.x + playerSpeed;
     player.y = lerp(player.y, angle * player.sensitivity + player.midHeight, 0.05);
 
 }
 
 function calculateFillColor(player) {
-    playerAmp = abs(y - midHeight);
+    playerAmp = abs(player.y - player.midHeight);
     distanceToGoal = abs(goalInPixels - playerAmp);
 
-
-    if (distanceToGoal < 21) {
-        index = round(distanceToGoal / 3);
+    if (distanceToGoal < 77 && player.allowGreen) {
+        index = round(distanceToGoal / 11);
         fill(gradientColors[index]);
-
-        if (index < 4) {
-            reachedAmp = true;
-        }
     } else if (distanceToGoal) {
-        fill(gradientColors[8]);
+        fill(gradientColors[7]);
     }
 
 }
@@ -141,11 +186,8 @@ function calculateFillColor(player) {
 function drawPlayerViews() {
     noStroke();
 
-    fill(player1.backgroundColor);
-    rect(0, 0, width, midHeight);
-
-    fill(player2.backgroundColor);
-    rect(0, midHeight, width, height);
+    fill(0, 0.3);
+    rect(0, 0, width, height / 2);
 }
 
 function drawGrid() {
@@ -171,9 +213,6 @@ function drawXAxes() {
     stroke(0);
     strokeWeight(4);
     setLineDash([0, 0]);
-
-    // draw x-axis
-    line(0, midHeight, width, midHeight);
 
     // set pen
     stroke(gridColor);
